@@ -1,0 +1,145 @@
+{% extends "Base.html" %}
+{% block title %}Perfil{% endblock %}
+{% block navbar_links %} 
+    <li style="display: inline; margin-right: 20px;">
+        <a href="{{url_for('auth.logout')}}" style="color: white; text-decoration: none;">Logout</a>
+    </li>
+    <li style="display: inline; margin-right: 20px;">
+        <a href="{{url_for('auth.home')}}" style="color: white; text-decoration: none;">Perfil</a>
+    </li>
+    <li style="display: inline; margin-right: 20px;">
+        <a href="{{url_for('catalog.products')}}" style="color: white; text-decoration: none;">Catalogo</a>
+    </li>
+    <li style="display: inline; margin-right: 20px; position: relative;">
+        <a href="{{url_for('cart.viewCart')}}">
+            <i class="material-icons">shopping_cart</i>
+            {% if cartCount > 0 %}
+                <span class="cart_badge">{{ cartCount }}</span>
+            {% endif %}
+        </a>    
+    </li>    
+{% endblock %}
+{% block header %}Carrito de Compras{% endblock %}
+{% block content %}
+    <div class="container">        
+        <table class="striped">
+            <thead>
+                <tr>
+                    <th>Imagen</th>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for productId, item in cart.items() %}
+                <tr>
+                    <td>
+                        <img width="50" src="{{ url_for('static', filename='uploads/' + item.picture | default('default.png')) }}" alt="Imagen">
+                    </td>
+                    <td>
+                        {{ item.name}}
+                    </td>
+                    <td>
+                        {{ item.price }}
+                    </td>
+                    <td>
+                        {{ item.quantity }}
+                    </td>
+                    <td>
+                        <form action="{{ url_for('cart.removeFromCart', productId=productId) }}" method="POST">
+                            <button type="submit" class="btn blue">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div id="modalPago" class="modal">
+        <div class="modal-content">
+            <h4>Seleccionar Método de Pago</h4>
+            <p>Elige como deseas pagar:</p>
+            <form id="pagoForm">
+                <p>
+                    <label>
+                        <input type="radio" name="tipPago" value="credito" style="color: blue;" checked>
+                        <span>Tarjeta de Crédito</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="radio" name="tipPago" value="debito">
+                        <span>Tarjeta de Débito</span>
+                    </label>
+                </p>
+                <label>
+                    <input class="input-field" id="numeroTarjeta" placeholder="Número de Tarjeta" required>
+                </label>
+            </form>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-red btn-flat">Cancelar</a>
+                <a href="#" class="btn blue" onclick="simularPago()">Confirmar Pago</a>
+            </div>            
+        </div>
+    </div>
+    <div>
+        <h4 class="right-align">Total: ${{ total }} </h4>
+    </div>
+    <div class ="right-align">
+        <i class="large material-icons">adb</i>
+    </div>
+    <div class="center-align">
+        <a href="{{ url_for('catalog.products') }}" class="btn blue" style="color: white; text-decoration: none;">Seguir Comprando</a>
+        <a href="#modalPago" class="btn blue modal-trigger" style="color: white; text-decoration: none;">Pagar</a>
+    </div>
+    <div class="progress">
+        <div class="indeterminate"></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var modals = document.querySelectorAll(".modal");
+            M.Modal.init(modals);
+        });
+    
+        function simularPago() {
+            let tipoPago = document.querySelector('input[name="tipPago"]:checked').value;
+            let numeroTarjeta = document.getElementById("numeroTarjeta").value;
+            
+            if (numeroTarjeta.length < 16) {
+                M.toast({ html: "Número de tarjeta inválido", classes: 'red' });
+                return;
+            }
+    
+            M.toast({
+                html: `Pago con ${tipoPago === 'credito' ? 'Tarjeta de Crédito' : 'Tarjeta de Débito'} realizado con éxito`,
+                classes: 'green'
+            });
+    
+            setTimeout(() => {
+                var instances = M.Modal.getInstance(document.getElementById("modalPago"));
+                instances.close();
+    
+                // Enviar solicitud POST a la ruta /complete_payment
+                fetch("{{ url_for('cart.completePayment') }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        window.location.href = "{{ url_for('catalog.products') }}";
+                    } else {
+                        M.toast({ html: "Error al completar el pago", classes: 'red' });
+                    }
+                }).catch(error => {
+                    console.error("Error:", error);
+                    M.toast({ html: "Error al completar el pago", classes: 'red' });
+                });
+            }, 1000);
+        }
+    </script>
+    
+{% endblock %}

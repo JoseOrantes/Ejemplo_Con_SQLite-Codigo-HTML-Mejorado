@@ -1,0 +1,34 @@
+[
+    {
+        "cui": "0000111110000",
+        "name": "Jose",
+        "dateBorn": "2000-09-09",
+        "email": "jose@email.com",
+        "password": "123456",
+        "picture": "0000111110000_Dark_Avenger.jpeg"
+    },
+    {
+        "cui": "0000000000000",
+        "name": "Jose Prueba",
+        "dateBorn": "2025-03-07",
+        "email": "jose@prueba.com",
+        "password": "123456",
+        "picture": "Urbie.jpg"
+    },
+    {
+        "cui": "2222111112222",
+        "name": "Jose Tarea 2",
+        "dateBorn": "2025-03-06",
+        "email": "Tarea2@email.com",
+        "password": "123456",
+        "picture": "Thelodica-banner.png"
+    },
+    {
+        "cui": "3333333333333",
+        "name": "Jose Proyect",
+        "dateBorn": "2025-04-13",
+        "email": "joseProyect@email.com",
+        "password": "123456",
+        "picture": "DA.png"
+    }
+]

@@ -1,0 +1,51 @@
+{% extends "Base.html" %}
+{% block title %}Perfil{% endblock %}
+{% block navbar_links %} 
+    <li style="display: inline; margin-right: 20px;">
+        <a href="{{url_for('auth.logout')}}" style="color: white; text-decoration: none;">Logout</a>
+    </li>
+    <li style="display: inline; margin-right: 20px;">
+        <a href="{{url_for('catalog.products')}}" style="color: white; text-decoration: none;">Catalogo</a>
+    </li>
+    <li style="display: inline; margin-right: 20px; position: relative;">
+        <a href="{{url_for('cart.viewCart')}}">
+            <i class="material-icons">shopping_cart</i>
+            {% if cartCount > 0 %}
+                <span class="cart_badge">{{ cartCount }}</span>
+            {% endif %}
+        </a>    
+    </li>   
+{% endblock %}
+{% block header %}Perfil{% endblock %}
+{% block content %}
+    {% if session ["cui"] %}
+        <div class="col s12 m2">
+            <div class="z-depth-5">
+                <div class="card horizontal small">
+                    <div class="card-image">
+                        <img class="profile" src="{{ url_for('static', filename='uploads/' + user.picture) }}" alt="">
+                    </div>
+                    <div class="card-stacked">
+                        <br><br>
+                        <div class ="container #212121 grey darken-4">
+                            <div class ='card-content'>
+                                <p style="color: white;"><strong>Hola</strong> Bienvenido a Home {{ user.name }}</p>
+                                <p style="color: white;"><strong>Cui: </strong> {{ user.cui }}</p>
+                                <p style="color: white;"><strong>emal: </strong> {{ user.email }}</p>
+                                <p style="color: white;"><strong>DOB:</strong> {{ user.dateBorn}}</p>                                        
+                            </div>
+                            <a href="{{url_for('auth.home')}}" style="color: white; text-decoration: none; background-color: #2196f3; padding: 10px 20px; border-radius: 5px; display: inline-block;">Editar Perfil</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    <div class ="right-align">
+        <i class="large material-icons">adb</i>
+    </div>
+    <div class="progress">
+        <div class="indeterminate"></div>
+    </div>
+{% endblock %}

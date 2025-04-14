@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'materialize.min.css')}}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'styles.css')}}">
+    <br><br><br><br><br>
+    <!--Flash bar progress-->
+    <div class="progress">
+        <div class="indeterminate"></div>
+    </div>
+    <!--Android Icon-->
+    <i class="large material-icons">adb</i>
+    <title>{% block title %}MiApp{% endblock %}</title>
+</head>
+<body class ="container #2196f3 blue">
+    <!-- Barra de navegacion -->
+    <nav style="background-color:black; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;">
+        <div style="padding: 10px; color: white;">
+            <a href="#" style="color: white; text-decoration: none; font-size: 24px;">MiApp</a>
+                <ul style="list-style-type: none; float: right; margin: 0; padding: 0;">
+                    {% block navbar_links %}{% endblock %}
+                </ul>
+        </div>
+    </nav>
+    <!-- Contenido Principal -->
+    <div class="container">
+        <h1 class="center-align">{% block header%}{% endblock %}</h1>
+        {% include "flash_messages.html" %}
+        {% block content %}{% endblock %}
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,44 @@
+{% extends "Base.html" %}
+{% block title %}Iniciar Session{% endblock %}
+{% block navbar_links %} 
+    <li style="display: inline; margin-right: 20px;">
+        <a href="{{url_for('auth.registro')}}" style="color: white; text-decoration: none;">Registro</a>
+    </li>
+{% endblock %}
+{% block header %}Iniciar Sesión{% endblock %}
+{% block content %}
+    <form method="post" class ="container #212121 grey darken-4"><!--A donde se van los datos con action, get toma, post pone-->
+        <div class="container"> 
+            <div>
+                <label for="cui" style="font-size: 24px;"><strong></strong></label><!-- Cambios: font-size agregado -->
+                <br>
+            </div>
+        </div>
+        <div class="container"> 
+            <div class="input-field">
+                <label for="cui" style="font-size: 24px;"><strong>CUI</strong></label><!-- Cambios: font-size agregado -->
+                <input type="number" name="cui" required placeholder="xxxxxxxxxxxxx" autofocus autocomplete="off" class="center-align">
+                <br>
+            </div>
+        </div>
+        <div class="container">
+            <div class="input-field">
+                <label for="password" style="font-size: 24px;"><strong>Password:</strong></label> <!-- Cambios: font-size agregado -->
+                <input type="password" name="password" required minlength="5" maxlength="8" placeholder="********" autofocus autocomplete="off" class="center-align">
+                <br>
+            </div>
+        </div>        
+        <div class="center-align">
+            <button type="submit" class="waves-effect waves-light btn-large blue darken-4"><i class="material-icons right">cloud</i>Entrar</button>
+        </div>
+        <div class="card-panel #212121 grey darken-4">
+        </div>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.modal');
+            var instances = M.Modal.init(elems, {});
+          });
+    </script>
+{% endblock %}

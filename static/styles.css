@@ -1,0 +1,38 @@
+.product-image {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.product-content {
+    min-height: 150px;
+}
+
+.card-action {
+    padding-bottom: 10px;
+}
+
+.cart_badge {
+    position: absolute;
+    top: 0; /* Ajusta este valor */
+    right: 0; /* Ajusta este valor */
+    background-color: blue;
+    color: white;
+    font-size: 12px;
+    border-radius: 50%;
+    width: 20px; /* Ajustado para mejor visibilidad */
+    height: 20px; /* Ajustado para mejor visibilidad */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+input[type="radio"] + span::before {
+    border-color: blue; /* Cambia el color del borde del círculo */
+}
+
+input[type="radio"]:checked + span::before {
+    border-color: blue; /* Cambia el color del borde del círculo */
+    background-color: blue; /* Cambia el color del círculo */
+}

@@ -1,0 +1,84 @@
+{% extends "Base.html" %}
+{% block title %}Registro de Usuario{% endblock %}
+
+{% block navbar_links %}
+    <li style="display: inline; margin-right: 20px;">
+        <a href="{{url_for('auth.login')}}" style="color: white; text-decoration: none;">Login</a>
+    </li>
+{% endblock%}
+
+{% block header %}Registro de Usuario{% endblock %}
+
+{% block content %}
+    <!--enctype="multipart/form-data" es para preparar el html que envie archivos al servidor-->
+    <form method="post" enctype="multipart/form-data" class ="container #212121 grey darken-4"><!--A donde se van los datos con action, get toma, post pone-->
+        <div class="container"> 
+            <div>
+                <label for="cui" style="font-size: 24px;"><strong></strong></label><!-- Cambios: font-size agregado -->
+                <br>
+            </div>
+        </div>
+        <div class="container"> 
+            <div class="input-field">
+                <label for="cui"><strong>CUI:</strong></label><!--label para formularios-->
+                <input type="number" name="cui" required placeholder="XXXX XXXXX XXXX" autofocus autocomplete="off" class="center-align">
+                <br>
+            </div>
+        </div>
+        <div class="container">
+            <div class="input-field">
+                <label for="name"><strong>Nombres:</strong></label><!--Esto puede ser manipulado con navegador-->
+                <input type="text" name="name" autofocus autocomplete="off" class="center-align"> <!-- doble validacion es requerida-->
+                <br>
+            </div>
+        </div>
+        <div class="container">
+            <div class="input-field">
+                <label for="dateBorn"><strong>Fecha de Nacimiento:</strong></label><!--Esto puede ser manipulado con navegador-->
+                <input type="date" name="dateBorn" autofocus autocomplete="off" class="center-align"> <!-- doble validacion es requerida-->
+                <br>
+            </div>
+        </div>
+        <div class="container"> 
+            <div class="input-field">
+                <label for="correo"><strong>Correo Electrónico:</strong></label><!--label para formularios-->
+                <input type="email" name="email" required placeholder="example@email.com" autofocus autocomplete="off" class="center-align">
+                <br>
+            </div>
+        </div>
+        <div class="container">
+            <div class="input-field">
+                <label for="password"><strong>Password:</strong></label><!--Esto puede ser manipulado con navegador-->
+                <input type="password" name="password" required minlength="5" maxlength="8" placeholder="********" autofocus autocomplete="off" class="center-align"> <!-- doble validacion es requerida-->
+                <br>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="file-field input-field">
+                <div class="btn #2196f3 blue">
+                  <span>Foto de Perfíl</span>
+                  <input name="picture" type="file">
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text">
+                </div>
+              </div>
+        </div>
+        <div class="center-align">
+            <button type="submit" class="waves-effect waves-light btn-large blue darken-4"><i class="material-icons right">cloud</i>Registrarse</button>
+        </div>
+        <div class="card-panel #212121 grey darken-4">
+            <!--<a href={{url_for('auth.login')}}>Ir a Login</a>-->
+        </div>
+    </form>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.modal');
+            var instances = M.Modal.init(elems, {});
+          });
+    </script>
+{% endblock %}
+
+    
+

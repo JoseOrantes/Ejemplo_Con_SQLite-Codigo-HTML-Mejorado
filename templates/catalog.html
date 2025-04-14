@@ -1,0 +1,50 @@
+{% extends "Base.html" %}
+{% block title %}Perfil{% endblock %}
+{% block navbar_links %} 
+    <li style="display: inline; margin-right: 20px;">
+        <a href="{{url_for('auth.logout')}}" style="color: white; text-decoration: none;">Logout</a>
+    </li>
+    <li style="display: inline; margin-right: 20px;">
+        <a href="{{url_for('auth.home')}}" style="color: white; text-decoration: none;">Perfil</a>
+    </li>
+    <li style="display: inline; margin-right: 20px; position: relative;">
+        <a href="{{url_for('cart.viewCart')}}">
+            <i class="material-icons">shopping_cart</i>
+            {% if cartCount > 0 %}
+                <span class="cart_badge">{{ cartCount }}</span>
+            {% endif %}
+        </a>    
+    </li>   
+{% endblock %}
+{% block header %}Catalogo de Productos{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            {% for product in products %}
+                <div class="col s12 m4 l4">
+                    <div class="card">
+                        <div class="card-image">
+                            <img class="product-image" src="{{ url_for('static', filename='uploads/' + product.picture) }}" alt="{{ product.name }}">
+                        </div>
+                        <div class="card-content product-content">
+                            <span class="card-title">{{ product.name }}</span>
+                            <p><strong>Precio:</strong> ${{ product.price}} </p>
+                        </div>
+                        <div class="card-action center-align">
+                            <form method="post" action="{{url_for('cart.addToCart', productId=product.id)}}">
+                                <button type="submit" class="btn blue">Agregar</button>
+                            </form>
+                            <!--<a href="#" class="btn blue">Agregar al carrito</a>-->
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class ="right-align">
+        <i class="large material-icons">adb</i>
+    </div>
+    <div class="progress">
+        <div class="indeterminate"></div>
+    </div>
+{% endblock %}
